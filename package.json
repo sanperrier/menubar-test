@@ -27,7 +27,11 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
+      "packagerConfig": {
+        "osxSign": {
+          "identity": "Mac Developer: aliencrowdman@yandex.ru (TH6VWDLA39)"
+        }
+      },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",

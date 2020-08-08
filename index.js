@@ -1,17 +1,30 @@
 const { menubar } = require('menubar');
-const { app, Menu, Tray, autoUpdater } = require('electron');
+const { app, Menu, Tray, autoUpdater, dialog } = require('electron');
 const path = require('path');
 
 autoUpdater.setFeedURL(`https://update.electronjs.org/sanperrier/menubar-test/${process.platform}-${process.arch}/${app.getVersion()}`);
-autoUpdater.on('update-downloaded', () => autoUpdater.quitAndInstall());
+
+autoUpdater.on('update-downloaded', async (e, notes, name) => {
+    await dialog.showMessageBox({ 
+        title: "Update downloaded",
+        message: name,
+        detail: notes
+     })
+    autoUpdater.quitAndInstall();
+});
 
 app.on('ready', () => {
     const tray = new Tray(path.resolve(__dirname, 'icon.png'));
     const contextMenu = Menu.buildFromTemplate([
         {
-            label: 'Check for updates and install',
+            label: `Check for updates and install (current: ${app.getVersion()})`,
             type: 'normal',
             click: () => autoUpdater.checkForUpdates()
+        },
+        {
+            label: 'Close window',
+            type: 'normal',
+            click: () => mb.window.close()
         },
         {
             label: 'Exit',
