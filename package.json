@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
-    "package": "electron-forge package",
+    "package": "electron-forge publish --dry-run",
+    "publish": "electron-forge publish --from-dry-run",
     "make": "electron-forge make"
   },
   "author": "",
@@ -21,6 +22,7 @@
     "@electron-forge/maker-rpm": "^6.0.0-beta.52",
     "@electron-forge/maker-squirrel": "^6.0.0-beta.52",
     "@electron-forge/maker-zip": "^6.0.0-beta.52",
+    "@electron-forge/publisher-github": "^6.0.0-beta.52",
     "electron": "^9.2.0"
   },
   "config": {
