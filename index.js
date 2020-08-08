@@ -61,4 +61,4 @@ app.on('window-all-closed', e => {
 
 app.on('before-quit', () => console.log('before-quit'));
 app.on('will-quit', () => console.log('will-quit'));
-app.on('quit', async () => console.log('quit'));
+app.on('quit', async () => { console.log('quit'); app.exit(0); });
