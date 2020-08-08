@@ -4,12 +4,26 @@ const path = require('path');
 
 autoUpdater.setFeedURL(`https://update.electronjs.org/sanperrier/menubar-test/${process.platform}-${process.arch}/${app.getVersion()}`);
 
+autoUpdater.on('update-not-available', () => {
+    dialog.showMessageBox({
+        title: "No available updates",
+        message: `current version: ${app.getVersion()}`
+    });
+});
+
+autoUpdater.on('update-available', () => {
+    dialog.showMessageBox({
+        title: "Update is downloading",
+        message: `current version: ${app.getVersion()}`
+    });
+});
+
 autoUpdater.on('update-downloaded', async (e, notes, name) => {
-    await dialog.showMessageBox({ 
+    await dialog.showMessageBox({
         title: "Update downloaded",
         message: name,
         detail: notes
-     })
+    });
     autoUpdater.quitAndInstall();
 });
 
