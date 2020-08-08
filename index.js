@@ -54,9 +54,9 @@ app.on('ready', () => {
 app.on('window-all-closed', e => {
     console.log('window-all-closed');
 
-    // if (process.platform != 'darwin') {
+    if (process.platform != 'darwin') {
         app.quit();
-    // }
+    }
 });
 
 app.on('before-quit', () => console.log('before-quit'));
