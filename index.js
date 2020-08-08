@@ -2,6 +2,10 @@ const { menubar } = require('menubar');
 const { app, Menu, Tray, autoUpdater, dialog } = require('electron');
 const path = require('path');
 
+async function sleep(ms = 1000) {
+    await new Promise(r => setTimeout(r, ms));
+}
+
 autoUpdater.setFeedURL(`https://update.electronjs.org/sanperrier/menubar-test/${process.platform}-${process.arch}/${app.getVersion()}`);
 
 autoUpdater.on('update-not-available', () => {
@@ -21,7 +25,7 @@ autoUpdater.on('update-available', () => {
 autoUpdater.on('update-downloaded', async (e, notes, name) => {
     mb.hideWindow();
 
-    await new Promise(r => setTimeout(r, 1000));
+    await sleep();
 
     await dialog.showMessageBox({
         title: "Update downloaded",
@@ -31,7 +35,7 @@ autoUpdater.on('update-downloaded', async (e, notes, name) => {
 
     mb.hideWindow();
 
-    await new Promise(r => setTimeout(r, 1000));
+    await sleep();
 
     autoUpdater.quitAndInstall();
 });
@@ -72,4 +76,10 @@ app.on('window-all-closed', e => {
 
 app.on('before-quit', () => console.log('before-quit'));
 app.on('will-quit', () => console.log('will-quit'));
-app.on('quit', () => console.log('quit'));
+app.on('quit', async () => {
+    console.log('quit');
+
+    await sleep();
+    
+    app.exit(0);
+});
