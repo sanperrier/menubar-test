@@ -19,14 +19,25 @@ autoUpdater.on('update-available', () => {
 });
 
 autoUpdater.on('update-downloaded', async (e, notes, name) => {
+    mb.hideWindow();
+
+    await new Promise(r => setTimeout(r, 1000));
+
     await dialog.showMessageBox({
         title: "Update downloaded",
         message: `Update downloaded\ncurrent version: ${app.getVersion()}\nnew version: ${name}`,
         detail: notes
     });
+
+    mb.hideWindow();
+
+    await new Promise(r => setTimeout(r, 1000));
+
     autoUpdater.quitAndInstall();
 });
 
+/** @type {ReturnType<menubar>} */
+let mb;
 app.on('ready', () => {
     const tray = new Tray(path.resolve(__dirname, 'icon.png'));
     const contextMenu = Menu.buildFromTemplate([
@@ -38,7 +49,7 @@ app.on('ready', () => {
         {
             label: 'Close window',
             type: 'normal',
-            click: () => mb.window.close()
+            click: () => mb.window?.close()
         },
         {
             label: 'Exit',
@@ -48,7 +59,7 @@ app.on('ready', () => {
     ]);
     tray.setContextMenu(contextMenu);
 
-    const mb = menubar({ tray });
+    mb = menubar({ tray });
 });
 
 app.on('window-all-closed', e => {
