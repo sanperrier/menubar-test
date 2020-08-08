@@ -43,7 +43,7 @@ autoUpdater.on('update-downloaded', async (e, notes, name) => {
 /** @type {ReturnType<menubar>} */
 let mb;
 app.on('ready', () => {
-    const tray = new Tray(path.resolve(__dirname, 'icon.png'));
+    const tray = new Tray(require.resolve('menubar/assets/IconTemplate.png'));
     const contextMenu = Menu.buildFromTemplate([
         {
             label: `Check for updates and install (current: ${app.getVersion()})`,
