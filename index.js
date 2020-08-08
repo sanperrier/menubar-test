@@ -7,21 +7,21 @@ autoUpdater.setFeedURL(`https://update.electronjs.org/sanperrier/menubar-test/${
 autoUpdater.on('update-not-available', () => {
     dialog.showMessageBox({
         title: "No available updates",
-        message: `current version: ${app.getVersion()}`
+        message: `No available updates\ncurrent version: ${app.getVersion()}`
     });
 });
 
 autoUpdater.on('update-available', () => {
     dialog.showMessageBox({
         title: "Update is downloading",
-        message: `current version: ${app.getVersion()}`
+        message: `Update is downloading\ncurrent version: ${app.getVersion()}`
     });
 });
 
 autoUpdater.on('update-downloaded', async (e, notes, name) => {
     await dialog.showMessageBox({
         title: "Update downloaded",
-        message: name,
+        message: `Update downloaded\ncurrent version: ${app.getVersion()}\nnew version: ${name}`,
         detail: notes
     });
     autoUpdater.quitAndInstall();
@@ -54,9 +54,9 @@ app.on('ready', () => {
 app.on('window-all-closed', e => {
     console.log('window-all-closed');
 
-    if (process.platform != 'darwin') {
+    // if (process.platform != 'darwin') {
         app.quit();
-    }
+    // }
 });
 
 app.on('before-quit', () => console.log('before-quit'));
