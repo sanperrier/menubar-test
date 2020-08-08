@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron-forge start",
-    "package": "electron-forge publish --dry-run",
-    "publish": "electron-forge publish --from-dry-run",
+    "package": "electron-forge package",
+    "publish": "electron-forge publish",
     "make": "electron-forge make"
   },
   "author": "",
@@ -61,8 +61,7 @@
             "repository": {
               "owner": "sanperrier",
               "name": "menubar-test"
-            },
-            "prerelease": true
+            }
           }
         }
       ]
